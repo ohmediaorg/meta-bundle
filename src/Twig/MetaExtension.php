@@ -30,17 +30,22 @@ class MetaExtension extends AbstractExtension
     public function getMeta(Environment $env,
         ?string $title = null,
         ?string $description = null,
-        ?Image $image = null
+        ?Image $image = null,
+        bool $appendBaseTitle = true
     )
     {
         $meta = [
-            'title' => $this->settings->get('oh_media_meta_title'),
+            'title' => $title ?: $this->settings->get('oh_media_meta_title'),
             'description' => $description ?: $this->settings->get('oh_media_meta_description'),
             'image' => $image ?: $this->settings->get('oh_media_meta_image')
         ];
 
-        if ($title) {
-            $meta['title'] = sprintf('%s | %s', $title, $meta['title']);
+        if ($title && $appendBaseTitle) {
+            $meta['title'] = sprintf(
+                '%s | %s',
+                $title,
+                $this->settings->get('oh_media_meta_title')
+            );
         }
 
         return $env->render('@OHMediaMeta/meta.html.twig', [
