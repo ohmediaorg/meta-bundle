@@ -27,24 +27,27 @@ class MetaExtension extends AbstractExtension
         ];
     }
 
-    public function getMeta(Environment $env,
+    public function getMeta(
+        Environment $env,
         ?string $title = null,
         ?string $description = null,
         ?Image $image = null,
         bool $appendBaseTitle = true
     )
     {
+        $baseTitle = $this->settings->get('oh_media_meta_title');
+
         $meta = [
-            'title' => $title ?: $this->settings->get('oh_media_meta_title'),
+            'title' => $title ?: $baseTitle,
             'description' => $description ?: $this->settings->get('oh_media_meta_description'),
             'image' => $image ?: $this->settings->get('oh_media_meta_image')
         ];
 
-        if ($title && $appendBaseTitle) {
+        if ($title && $appendBaseTitle && $baseTitle) {
             $meta['title'] = sprintf(
                 '%s | %s',
                 $title,
-                $this->settings->get('oh_media_meta_title')
+                $baseTitle
             );
         }
 
