@@ -1,0 +1,12 @@
+services:
+    jstnthms_meta.meta_extension:
+        class: JstnThms\MetaBundle\Twig\MetaExtension
+        arguments: ["@jstnthms_settings.settings"]
+        tags:
+            - { name: twig.extension }
+    
+    jstnthms_meta.settings:
+        class: JstnThms\MetaBundle\Settings\ImageTransformer
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: jstnthms_settings.transformer }
