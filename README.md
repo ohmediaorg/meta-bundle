@@ -1,10 +1,8 @@
-Overview
-========
+# Overview
 
 This bundle leverages `OHMediaSettingsBundle` to offer meta tag management.
 
-Installation
-------------
+## Installation
 
 First, make sure `OHMediaFileBundle` and `OHMediaSettingsBundle` are installed.
 
@@ -17,8 +15,7 @@ return [
 ];
 ```
 
-Usage
------
+## Settings
 
 Create the form fields to manage the settings:
 
@@ -88,4 +85,48 @@ public function updateSettings(Settings $settings)
     $settings->set('oh_media_meta_image', $form->get('oh_media_meta_image')->getData());
 }
 
+```
+
+## Usage
+
+The bundle supplies a Twig function for outputting consistent meta tag content.
+
+You can use the defaults provided by the above settings:
+
+```twig
+{{ oh_media_meta() }}
+```
+
+You can provide overrides:
+
+```twig
+{{ oh_media_meta('Products', 'We have lots of products ranging from...') }}
+```
+
+The title is not fully overridden unless the fourth parameter is `false`.
+
+For example, let's say the `oh_media_meta_title` setting was "Company Ltd."
+
+If you did
+
+```twig
+{{ oh_media_meta('Products') }}
+```
+
+you would get
+
+```html
+<title>Products | Company Ltd.</title>
+```
+
+If you did
+
+```twig
+{{ oh_media_meta('Products', null, null, false) }}
+```
+
+you would get
+
+```html
+<title>Products</title>
 ```
