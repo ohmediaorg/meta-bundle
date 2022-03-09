@@ -11,13 +11,13 @@ use Twig\TwigFunction;
 class MetaExtension extends AbstractExtension
 {
     private $settings;
-    
+
     public function __construct(Settings $settings)
     {
         $this->settings = $settings;
     }
-    
-    public function getFunctions()
+
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('oh_media_meta', [$this, 'getMeta'], [
@@ -26,7 +26,7 @@ class MetaExtension extends AbstractExtension
             ])
         ];
     }
-    
+
     public function getMeta(Environment $env,
         ?string $title = null,
         ?string $description = null,
@@ -38,11 +38,11 @@ class MetaExtension extends AbstractExtension
             'description' => $description ?: $this->settings->get('oh_media_meta_description'),
             'image' => $image ?: $this->settings->get('oh_media_meta_image')
         ];
-        
+
         if ($title) {
             $meta['title'] = sprintf('%s | %s', $title, $meta['title']);
         }
-        
+
         return $env->render('@OHMediaMeta/meta.html.twig', [
             'meta' => $meta
         ]);
