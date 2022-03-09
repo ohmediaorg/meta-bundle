@@ -1,19 +1,19 @@
 Overview
 ========
 
-This bundle leverages `JstnThmsSettingsBundle` to offer meta tag management.
+This bundle leverages `OHMediaSettingsBundle` to offer meta tag management.
 
 Installation
 ------------
 
-First, make sure `JstnThmsFileBundle` and `JstnThmsSettingsBundle` are installed.
+First, make sure `OHMediaFileBundle` and `OHMediaSettingsBundle` are installed.
 
 Enable the bundle in `config/bundles.php`:
 
 ```php
 return [
     // ...
-    JstnThms\MetaBundle\MetaBundle() => ['all' => true],
+    OHMedia\MetaBundle\MetaBundle() => ['all' => true],
 ];
 ```
 
@@ -27,8 +27,8 @@ Create the form fields to manage the settings:
 
 namespace App\Form;
 
-use JstnThms\FileBundle\Form\Type\ImageEntityType;
-use JstnThms\SettingsBundle\Settings\Settings;
+use OHMedia\FileBundle\Form\Type\ImageEntityType;
+use OHMedia\SettingsBundle\Settings\Settings;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -48,17 +48,17 @@ class SettingsType extends AbstractType
     {
         $builder
             // ...
-            ->add('jstnthms_meta_title', TextType::class, [
+            ->add('oh_media_meta_title', TextType::class, [
                 'label' => 'Meta Title',
-                'data' => $this->settings->get('jstnthms_meta_title')
+                'data' => $this->settings->get('oh_media_meta_title')
             ])
-            ->add('jstnthms_meta_description', TextareaType::class, [
+            ->add('oh_media_meta_description', TextareaType::class, [
                 'label' => 'Meta Description',
-                'data' => $this->settings->get('jstnthms_meta_description')
+                'data' => $this->settings->get('oh_media_meta_description')
             ])
-            ->add('jstnthms_meta_image', ImageEntityType::class, [
+            ->add('oh_media_meta_image', ImageEntityType::class, [
                 'label' => 'Meta Image',
-                'data' => $this->settings->get('jstnthms_meta_image')
+                'data' => $this->settings->get('oh_media_meta_image')
             ])
             // ...
         ;
@@ -73,7 +73,7 @@ and update them in a controller:
 <?php
 
 use App\Form\SettingsType;
-use JstnThms\SettingsBundle\Settings\Settings;
+use OHMedia\SettingsBundle\Settings\Settings;
 
 // ...
 
@@ -83,9 +83,9 @@ public function updateSettings(Settings $settings)
     
     // ...
     
-    $settings->set('jstnthms_meta_title', $form->get('jstnthms_meta_title')->getData());
-    $settings->set('jstnthms_meta_description', $form->get('jstnthms_meta_description')->getData());
-    $settings->set('jstnthms_meta_image', $form->get('jstnthms_meta_image')->getData());
+    $settings->set('oh_media_meta_title', $form->get('oh_media_meta_title')->getData());
+    $settings->set('oh_media_meta_description', $form->get('oh_media_meta_description')->getData());
+    $settings->set('oh_media_meta_image', $form->get('oh_media_meta_image')->getData());
 }
 
 ```

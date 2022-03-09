@@ -1,10 +1,10 @@
 <?php
 
-namespace JstnThms\MetaBundle\Settings;
+namespace OHMedia\MetaBundle\Settings;
 
 use Doctrine\ORM\EntityManagerInterface;
-use JstnThms\FileBundle\Entity\Image;
-use JstnThms\SettingsBundle\Settings\SettingsTransformerInterface;
+use OHMedia\FileBundle\Entity\Image;
+use OHMedia\SettingsBundle\Settings\SettingsTransformerInterface;
 
 class ImageTransformer implements SettingsTransformerInterface
 {
@@ -17,7 +17,7 @@ class ImageTransformer implements SettingsTransformerInterface
     
     public function getId(): string
     {
-        return 'jstnthms_meta_image';
+        return 'oh_media_meta_image';
     }
     
     public function transform($value): ?string

@@ -1,9 +1,9 @@
 <?php
 
-namespace JstnThms\MetaBundle;
+namespace OHMedia\MetaBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class JstnThmsMetaBundle extends Bundle
+class OHMediaMetaBundle extends Bundle
 {
 }

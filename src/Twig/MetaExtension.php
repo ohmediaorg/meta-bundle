@@ -1,9 +1,9 @@
 <?php
 
-namespace JstnThms\MetaBundle\Twig;
+namespace OHMedia\MetaBundle\Twig;
 
-use JstnThms\FileBundle\Entity\Image;
-use JstnThms\SettingsBundle\Settings\Settings;
+use OHMedia\FileBundle\Entity\Image;
+use OHMedia\SettingsBundle\Settings\Settings;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -20,7 +20,7 @@ class MetaExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('jstnthms_meta', [$this, 'getMeta'], [
+            new TwigFunction('oh_media_meta', [$this, 'getMeta'], [
                 'is_safe' => ['html'],
                 'needs_environment' => true
             ])
@@ -34,16 +34,16 @@ class MetaExtension extends AbstractExtension
     )
     {
         $meta = [
-            'title' => $this->settings->get('jstnthms_meta_title'),
-            'description' => $description ?: $this->settings->get('jstnthms_meta_description'),
-            'image' => $image ?: $this->settings->get('jstnthms_meta_image')
+            'title' => $this->settings->get('oh_media_meta_title'),
+            'description' => $description ?: $this->settings->get('oh_media_meta_description'),
+            'image' => $image ?: $this->settings->get('oh_media_meta_image')
         ];
         
         if ($title) {
             $meta['title'] = sprintf('%s | %s', $title, $meta['title']);
         }
         
-        return $env->render('@JstnThmsMeta/meta.html.twig', [
+        return $env->render('@OHMediaMeta/meta.html.twig', [
             'meta' => $meta
         ]);
     }
