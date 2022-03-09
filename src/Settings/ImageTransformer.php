@@ -4,34 +4,34 @@ namespace OHMedia\MetaBundle\Settings;
 
 use Doctrine\ORM\EntityManagerInterface;
 use OHMedia\FileBundle\Entity\Image;
-use OHMedia\SettingsBundle\Settings\SettingsTransformerInterface;
+use OHMedia\SettingsBundle\Interfaces\TransformerInterface;
 
-class ImageTransformer implements SettingsTransformerInterface
+class ImageTransformer implements TransformerInterface
 {
     private $em;
-    
+
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
-    
+
     public function getId(): string
     {
         return 'oh_media_meta_image';
     }
-    
+
     public function transform($value): ?string
     {
         if ($value instanceof Image) {
             $this->em->persist($value);
             $this->em->flush();
-            
+
             return (string) $value->getId();
         }
-        
+
         return null;
     }
-    
+
     public function reverseTransform(?string $value)
     {
         return $value

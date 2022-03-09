@@ -3,7 +3,7 @@
 namespace OHMedia\MetaBundle\Twig;
 
 use OHMedia\FileBundle\Entity\Image;
-use OHMedia\SettingsBundle\Settings\Settings;
+use OHMedia\SettingsBundle\Service\Settings;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
