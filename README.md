@@ -94,13 +94,13 @@ The bundle supplies a Twig function for outputting consistent meta tag content.
 You can use the defaults provided by the above settings:
 
 ```twig
-{{ oh_media_meta() }}
+{{ meta_tags() }}
 ```
 
 You can provide overrides:
 
 ```twig
-{{ oh_media_meta('Products', 'We have lots of products ranging from...') }}
+{{ meta_tags('Products', 'We have lots of products ranging from...') }}
 ```
 
 The title is not fully overridden unless the fourth parameter is `false`.
@@ -110,7 +110,7 @@ For example, let's say the `oh_media_meta_title` setting was "Company Ltd."
 If you did
 
 ```twig
-{{ oh_media_meta('Products') }}
+{{ meta_tags('Products') }}
 ```
 
 you would get
@@ -122,7 +122,7 @@ you would get
 If you did
 
 ```twig
-{{ oh_media_meta('Products', null, null, false) }}
+{{ meta_tags('Products', null, null, false) }}
 ```
 
 you would get

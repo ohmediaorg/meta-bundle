@@ -20,14 +20,14 @@ class MetaExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('oh_media_meta', [$this, 'getMeta'], [
+            new TwigFunction('meta_tags', [$this, 'getMetaTags'], [
                 'is_safe' => ['html'],
                 'needs_environment' => true
             ])
         ];
     }
 
-    public function getMeta(
+    public function getMetaTags(
         Environment $env,
         ?string $title = null,
         ?string $description = null,
