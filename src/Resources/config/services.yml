@@ -1,12 +1,13 @@
 services:
-    oh_media_meta.meta_extension:
-        class: OHMedia\MetaBundle\Twig\MetaExtension
+    OHMedia\MetaBundle\Twig\MetaExtension:
         arguments: ["@oh_media_settings.settings"]
         tags:
             - { name: twig.extension }
-    
-    oh_media_meta.settings:
-        class: OHMedia\MetaBundle\Settings\ImageTransformer
+
+    OHMedia\MetaBundle\Settings\ImageTransformer:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: oh_media_settings.transformer }
+
+    oh_media_meta.settings:
+        alias: OHMedia\MetaBundle\Settings\ImageTransformer
