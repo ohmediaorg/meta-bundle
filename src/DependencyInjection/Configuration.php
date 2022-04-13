@@ -18,7 +18,24 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('oh_media_meta');
-        
+
+        $treeBuilder->getRootNode()
+            ->children()
+                ->scalarNode('title')
+                    ->isRequired()
+                ->end()
+                ->scalarNode('description')
+                    ->isRequired()
+                ->end()
+                ->scalarNode('image')
+                    ->isRequired()
+                ->end()
+                ->scalarNode('separator')
+                    ->defaultValue('|')
+                ->end()
+            ->end()
+        ;
+
         return $treeBuilder;
     }
 }

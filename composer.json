@@ -11,9 +11,8 @@
         }
     ],
     "require": {
-        "justin-oh/file-bundle": "dev-main",
-        "justin-oh/settings-bundle": "dev-main",
-        "php": "^7.2"
+        "php": "^7.2",
+        "symfony/framework-bundle": "5.4.*"
     },
     "autoload": {
         "psr-4": { "OHMedia\\MetaBundle\\": "src/" }

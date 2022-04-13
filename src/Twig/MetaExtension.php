@@ -2,19 +2,33 @@
 
 namespace OHMedia\MetaBundle\Twig;
 
-use OHMedia\FileBundle\Entity\Image;
-use OHMedia\SettingsBundle\Service\Settings;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class MetaExtension extends AbstractExtension
 {
-    private $settings;
+    private $meta;
+    private $projectDir;
+    private $separator;
 
-    public function __construct(Settings $settings)
+    public function __construct(
+        string $projectDir,
+        string $title,
+        string $description,
+        string $image,
+        string $separator
+    )
     {
-        $this->settings = $settings;
+        $this->projectDir = $projectDir;
+
+        $this->title = $title;
+        $this->description = $description;
+        $this->image = $image;
+
+        list($this->width, $this->height) = $this->getImageSize($image);
+
+        $this->separator = $separator;
     }
 
     public function getFunctions(): array
@@ -23,7 +37,7 @@ class MetaExtension extends AbstractExtension
             new TwigFunction('meta_tags', [$this, 'getMetaTags'], [
                 'is_safe' => ['html'],
                 'needs_environment' => true
-            ])
+            ]),
         ];
     }
 
@@ -31,28 +45,53 @@ class MetaExtension extends AbstractExtension
         Environment $env,
         ?string $title = null,
         ?string $description = null,
-        ?Image $image = null,
+        ?string $image = null,
         bool $appendBaseTitle = true
     )
     {
-        $baseTitle = $this->settings->get('oh_media_meta_title');
+        list($width, $height) = $this->getImageSize($image);
 
-        $meta = [
-            'title' => $title ?: $baseTitle,
-            'description' => $description ?: $this->settings->get('oh_media_meta_description'),
-            'image' => $image ?: $this->settings->get('oh_media_meta_image')
+        $params = [
+            'title' => $title ?: $this->title,
+            'description' => $description ?: $this->description,
+            'image' => $image ?: $this->image,
+            'image_width' => $width ?: $this->width,
+            'image_height' => $height ?: $this->height,
         ];
 
-        if ($title && $appendBaseTitle && $baseTitle) {
-            $meta['title'] = sprintf(
-                '%s | %s',
+        if ($title && $appendBaseTitle) {
+            // basically prepending $title
+            $params['title'] = sprintf(
+                '%s %s %s',
                 $title,
-                $baseTitle
+                $this->separator,
+                $this->title
             );
         }
 
-        return $env->render('@OHMediaMeta/meta.html.twig', [
-            'meta' => $meta
-        ]);
+        return $env->render('@OHMediaMeta/meta.html.twig', $params);
+    }
+
+    private function getImageSize(?string $image): array
+    {
+        $default = [null, null];
+
+        if (!$image) {
+            return $default;
+        }
+
+        $absolute = $this->projectDir . '/public' . $image;
+
+        if (!is_file($absolute)) {
+            return $default;
+        }
+
+        $size = getimagesize($absolute);
+
+        if (!$size) {
+            return $default;
+        }
+
+        return [$size[0], $size[1]];
     }
 }
