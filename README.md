@@ -42,6 +42,9 @@ You can provide overrides:
 {{ meta_simple('Products', 'We have lots of products ranging from...') }}
 ```
 
+The third parameter is an image. This can be a string path to an image in the
+`public` folder or an `Image` entity from the `FileBundle`.
+
 The title is not fully overridden unless the fourth parameter is `false`.
 
 For example, let's say the `oh_media_meta.title` config was "Company Ltd."
