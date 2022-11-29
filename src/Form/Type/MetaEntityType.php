@@ -2,6 +2,7 @@
 
 namespace OHMedia\MetaBundle\Form\Type;
 
+use OHMedia\FileBundle\Form\Type\ImageEntityType;
 use OHMedia\MetaBundle\Entity\Meta;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
