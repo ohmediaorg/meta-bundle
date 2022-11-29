@@ -86,18 +86,14 @@ class MetaExtension extends AbstractExtension
         return $env->render('@OHMediaMeta/meta.html.twig', $params);
     }
 
-    public function getMetaEntity(
-        Environment $env,
-        MetaEntity $meta,
-        bool $appendBaseTitle = true
-    )
+    public function getMetaEntity(Environment $env, MetaEntity $meta)
     {
         return $this->getMetaSimple(
             $env,
             $meta->getTitle(),
             $meta->getDescription(),
             $meta->getImage(),
-            $appendBaseTitle
+            $meta->getAppendBaseTitle()
         );
     }
 

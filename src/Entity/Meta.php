@@ -67,7 +67,7 @@ class Meta
         return $this;
     }
 
-    public function isAppendBaseTitle(): ?bool
+    public function getAppendBaseTitle(): ?bool
     {
         return $this->append_base_title;
     }
