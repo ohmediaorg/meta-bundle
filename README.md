@@ -31,13 +31,13 @@ oh_media_meta:
 You can use the defaults provided by the above config:
 
 ```twig
-{{ meta_tags() }}
+{{ meta_simple() }}
 ```
 
 You can provide overrides:
 
 ```twig
-{{ meta_tags('Products', 'We have lots of products ranging from...') }}
+{{ meta_simple('Products', 'We have lots of products ranging from...') }}
 ```
 
 The title is not fully overridden unless the fourth parameter is `false`.
@@ -47,7 +47,7 @@ For example, let's say the `oh_media_meta.title` config was "Company Ltd."
 If you did
 
 ```twig
-{{ meta_tags('Products') }}
+{{ meta_simple('Products') }}
 ```
 
 you would get
@@ -59,7 +59,7 @@ you would get
 If you did
 
 ```twig
-{{ meta_tags('Products', null, null, false) }}
+{{ meta_simple('Products', null, null, false) }}
 ```
 
 you would get

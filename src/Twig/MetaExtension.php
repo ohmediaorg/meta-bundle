@@ -2,6 +2,8 @@
 
 namespace OHMedia\MetaBundle\Twig;
 
+use OHMedia\FileBundle\Entity\Image as ImageEntity;
+use OHMedia\MetaBundle\Entity\Meta as MetaEntity;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -34,18 +36,22 @@ class MetaExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('meta_tags', [$this, 'getMetaTags'], [
+            new TwigFunction('meta_simple', [$this, 'getMetaSimple'], [
+                'is_safe' => ['html'],
+                'needs_environment' => true
+            ]),
+            new TwigFunction('meta_entity', [$this, 'getMetaEntity'], [
                 'is_safe' => ['html'],
                 'needs_environment' => true
             ]),
         ];
     }
 
-    public function getMetaTags(
+    public function getMetaSimple(
         Environment $env,
         ?string $title = null,
         ?string $description = null,
-        ?string $image = null,
+        $image = null,
         bool $appendBaseTitle = true
     )
     {
@@ -72,11 +78,30 @@ class MetaExtension extends AbstractExtension
         return $env->render('@OHMediaMeta/meta.html.twig', $params);
     }
 
-    private function getImageSize(?string $image): array
+    public function getMetaEntity(
+        Environment $env,
+        MetaEntity $meta,
+        bool $appendBaseTitle = true
+    )
     {
+        return $this->getMetaSimple(
+            $env,
+            $meta->getTitle(),
+            $meta->getDescription(),
+            $meta->getImage(),
+            $appendBaseTitle
+        );
+    }
+
+    private function getImageSize($image): array
+    {
+        if ($image instanceof ImageEntity) {
+            return [$image->getWidth(), $image->getHeight()];
+        }
+
         $default = [null, null];
 
-        if (!$image) {
+        if (!$image || !is_string($image)) {
             return $default;
         }
 
