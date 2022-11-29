@@ -4,6 +4,8 @@ The bundle supplies a Twig function for outputting consistent meta tag content.
 
 ## Installation
 
+Make sure `justin-oh/file-bundle` is set up.
+
 Enable the bundle in `config/bundles.php`:
 
 ```php
