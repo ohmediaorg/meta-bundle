@@ -30,9 +30,7 @@ class MetaExtension extends AbstractExtension
 
         $this->title = $title;
         $this->description = $description;
-        $this->image = $image;
-
-        list($this->width, $this->height) = $this->getImageSize($image);
+        $this->imageData = $this->getImageData($image);
 
         $this->separator = $separator;
     }
@@ -59,18 +57,34 @@ class MetaExtension extends AbstractExtension
         bool $appendBaseTitle = true
     )
     {
-        list($width, $height) = $this->getImageSize($image);
+        return $this->renderMeta($env, $title, $description, $image, $appendBaseTitle);
+    }
 
-        if ($image instanceof ImageEntity) {
-            $image = $this->fileManager->getWebPath($image->getFile());
-        }
+    public function getMetaEntity(Environment $env, MetaEntity $meta)
+    {
+        return $this->renderMeta(
+            $env,
+            $meta->getTitle(),
+            $meta->getDescription(),
+            $meta->getImage(),
+            $meta->getAppendBaseTitle()
+        );
+    }
+
+    private function renderMeta(
+        Environment $env,
+        ?string $title = null,
+        ?string $description = null,
+        $image,
+        bool $appendBaseTitle = true
+    )
+    {
+        $imageData = $this->getImageData($image);
 
         $params = [
             'title' => $title ?: $this->title,
             'description' => $description ?: $this->description,
-            'image' => $image ?: $this->image,
-            'image_width' => $width ?: $this->width,
-            'image_height' => $height ?: $this->height,
+            'image' => $imageData ?: $this->imageData,
         ];
 
         if ($title && $appendBaseTitle) {
@@ -86,41 +100,36 @@ class MetaExtension extends AbstractExtension
         return $env->render('@OHMediaMeta/meta.html.twig', $params);
     }
 
-    public function getMetaEntity(Environment $env, MetaEntity $meta)
-    {
-        return $this->getMetaSimple(
-            $env,
-            $meta->getTitle(),
-            $meta->getDescription(),
-            $meta->getImage(),
-            $meta->getAppendBaseTitle()
-        );
-    }
-
-    private function getImageSize($image): array
+    private function getImageData($image): ?array
     {
         if ($image instanceof ImageEntity) {
-            return [$image->getWidth(), $image->getHeight()];
+            return [
+                'path' => $this->fileManager->getWebPath($image->getFile()),
+                'width' => $image->getWidth(),
+                'height' => $image->getHeight(),
+            ];
         }
 
-        $default = [null, null];
-
         if (!$image || !is_string($image)) {
-            return $default;
+            return null;
         }
 
         $absolute = $this->projectDir . '/public' . $image;
 
         if (!is_file($absolute)) {
-            return $default;
+            return null;
         }
 
         $size = getimagesize($absolute);
 
         if (!$size) {
-            return $default;
+            return null;
         }
 
-        return [$size[0], $size[1]];
+        return [
+            'path' => $image,
+            'width' => $size[0],
+            'height' => $size[1],
+        ];
     }
 }
