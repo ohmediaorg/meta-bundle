@@ -3,6 +3,7 @@
 namespace OHMedia\MetaBundle\Twig;
 
 use OHMedia\FileBundle\Entity\Image as ImageEntity;
+use OHMedia\FileBundle\Service\FileManager;
 use OHMedia\MetaBundle\Entity\Meta as MetaEntity;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -15,6 +16,7 @@ class MetaExtension extends AbstractExtension
     private $separator;
 
     public function __construct(
+        FileManager $fileManager,
         string $projectDir,
         string $title,
         string $description,
@@ -22,6 +24,8 @@ class MetaExtension extends AbstractExtension
         string $separator
     )
     {
+        $this->fileManager = $fileManager;
+
         $this->projectDir = $projectDir;
 
         $this->title = $title;
@@ -56,6 +60,10 @@ class MetaExtension extends AbstractExtension
     )
     {
         list($width, $height) = $this->getImageSize($image);
+
+        if ($image instanceof ImageEntity) {
+            $image = $this->fileManager->getWebPath($image->getFile());
+        }
 
         $params = [
             'title' => $title ?: $this->title,

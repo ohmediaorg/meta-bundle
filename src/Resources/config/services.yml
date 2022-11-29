@@ -1,5 +1,5 @@
 services:
     OHMedia\MetaBundle\Twig\MetaExtension:
-        arguments: ["%kernel.project_dir%", "%oh_media_meta.title%", "%oh_media_meta.description%", "%oh_media_meta.image%", "%oh_media_meta.separator%"]
+        arguments: ["@oh_media_file.file_manager", "%kernel.project_dir%", "%oh_media_meta.title%", "%oh_media_meta.description%", "%oh_media_meta.image%", "%oh_media_meta.separator%"]
         tags:
             - { name: twig.extension }
