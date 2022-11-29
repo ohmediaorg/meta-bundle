@@ -69,3 +69,31 @@ you would get
 ```html
 <title>Products</title>
 ```
+
+## Entities
+
+There is also an entity provided in `OHMedia\MetaBundle\Entity\Meta` with a 
+corresponding form type `OHMedia\MetaBundle\Form\Type\MetaEntityType`. This is
+so you can have custom meta information for your dynamic data.
+
+All you need to do is make a `OneToOne` association from your custom entity
+to this `Meta` entity.
+
+In your custom entity form you can add a field like so:
+
+```php
+use OHMedia\MetaBundle\Form\Type\MetaEntityType;
+
+// ...
+
+
+$builder->add('meta', MetaEntityType::class);
+```
+
+In your templates, you can do:
+
+```twig
+{{ meta_entity(myCustomEntity.meta) }}
+```
+
+Note: This assumes the name of your association on your custom entity is called `meta`.
