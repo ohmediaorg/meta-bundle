@@ -32,7 +32,7 @@ class MetaEntityType extends AbstractType
         if ($options['show_append_base_title']) {
             $builder->add('append_base_title', CheckboxType::class, [
                 'required' => false,
-                'empty_data' => true,
+                'data' => $meta ? $meta->getAppendBaseTitle() : true,
             ]);
         }
         else {
