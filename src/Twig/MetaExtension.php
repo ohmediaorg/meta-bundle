@@ -22,8 +22,7 @@ class MetaExtension extends AbstractExtension
         string $description,
         string $image,
         string $separator
-    )
-    {
+    ) {
         $this->fileManager = $fileManager;
 
         $this->projectDir = $projectDir;
@@ -55,8 +54,7 @@ class MetaExtension extends AbstractExtension
         ?string $description = null,
         $image = null,
         bool $appendBaseTitle = true
-    )
-    {
+    ) {
         return $this->renderMeta($env, $title, $description, $image, $appendBaseTitle);
     }
 
@@ -77,8 +75,7 @@ class MetaExtension extends AbstractExtension
         ?string $description = null,
         $image,
         bool $appendBaseTitle = true
-    )
-    {
+    ) {
         $imageData = $this->getImageData($image);
 
         $params = [

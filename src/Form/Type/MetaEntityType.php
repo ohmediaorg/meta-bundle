@@ -34,8 +34,7 @@ class MetaEntityType extends AbstractType
                 'required' => false,
                 'data' => $meta ? $meta->getAppendBaseTitle() : true,
             ]);
-        }
-        else {
+        } else {
             $builder->add('append_base_title', HiddenType::class, [
                 'data' => true,
             ]);
