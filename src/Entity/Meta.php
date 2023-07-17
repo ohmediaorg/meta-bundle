@@ -26,6 +26,12 @@ class Meta
     #[ORM\Column]
     private ?bool $append_base_title = null;
 
+    public function __clone()
+    {
+        $this->id = null;
+        $this->image = clone $this->image;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
