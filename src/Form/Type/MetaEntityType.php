@@ -19,13 +19,14 @@ class MetaEntityType extends AbstractType
 
         $builder
             ->add('title', null, [
-                'required' => false,
+                'required' => $options['required'],
             ])
             ->add('description', TextareaType::class, [
                 'required' => false,
             ])
             ->add('image', ImageEntityType::class, [
                 'data' => $meta ? $meta->getImage() : null,
+                'required' => false,
             ])
         ;
 
