@@ -12,6 +12,7 @@
     ],
     "require": {
         "ohmediaorg/file-bundle": "dev-main",
+        "ohmediaorg/settings-bundle": "dev-main",
         "php": "^7.2",
         "symfony/framework-bundle": "5.4.*"
     },

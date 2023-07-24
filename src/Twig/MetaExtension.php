@@ -5,6 +5,7 @@ namespace OHMedia\MetaBundle\Twig;
 use OHMedia\FileBundle\Entity\Image as ImageEntity;
 use OHMedia\FileBundle\Service\FileManager;
 use OHMedia\MetaBundle\Entity\Meta as MetaEntity;
+use OHMedia\MetaBundle\Settings\MetaSettings;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -13,25 +14,21 @@ class MetaExtension extends AbstractExtension
 {
     private $meta;
     private $projectDir;
-    private $separator;
 
     public function __construct(
         FileManager $fileManager,
-        string $projectDir,
-        string $title,
-        string $description,
-        string $image,
-        string $separator
+        MetaSettings $metaSettings,
+        string $projectDir
     ) {
         $this->fileManager = $fileManager;
 
-        $this->projectDir = $projectDir;
+        $this->baseTitle = $metaSettings->getBaseTitle();
+        $this->description = $metaSettings->getDescription();
+        $image = $metaSettings->getImage();
 
-        $this->title = $title;
-        $this->description = $description;
         $this->imageData = $this->getImageData($image);
 
-        $this->separator = $separator;
+        $this->projectDir = $projectDir;
     }
 
     public function getFunctions(): array
@@ -79,18 +76,16 @@ class MetaExtension extends AbstractExtension
         $imageData = $this->getImageData($image);
 
         $params = [
-            'title' => $title ?: $this->title,
+            'title' => $title ?: $this->baseTitle,
             'description' => $description ?: $this->description,
             'image' => $imageData ?: $this->imageData,
         ];
 
         if ($title && $appendBaseTitle) {
-            // basically prepending $title
             $params['title'] = sprintf(
-                '%s %s %s',
+                '%s | %s',
                 $title,
-                $this->separator,
-                $this->title
+                $this->baseTitle
             );
         }
 

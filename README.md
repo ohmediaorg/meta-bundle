@@ -4,7 +4,7 @@ The bundle supplies a Twig function for outputting consistent meta tag content.
 
 ## Installation
 
-Make sure `ohmediaorg/file-bundle` is set up.
+Make sure `ohmediaorg/file-bundle` and `ohmediaorg/settings-bundle` are set up.
 
 Enable the bundle in `config/bundles.php`:
 
@@ -17,20 +17,44 @@ return [
 
 ## Config
 
-Create `config/packages/oh_media_meta.yaml`:
+Manage the default settings with the `MetaFormHelper`:
 
 ```php
-oh_media_meta:
-    title: ''
-    description: ''
-    image: '' # should be relative to the public directory
-    separator: '|' # default
+use OHMedia\MetaBundle\Settings\MetaFormHelper;
 
+// ...
+
+public function settings(MetaFormHelper $metaFormHelper)
+{
+    $formBuilder = $this->createFormBuilder();
+    
+    $metaFormHelper->addDefaultFields($formBuilder);
+    
+    $form = $formBuilder->getForm();
+
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $metaFormHelper->saveDefaultFields($form);
+        
+        // ...
+    }
+    
+    // ...
+}
+```
+
+In the template, the fields can be individually rendered:
+
+```twig
+{{ form_row(form.oh_media_meta_base_title) }}
+{{ form_row(form.oh_media_meta_description) }}
+{{ form_row(form.oh_media_meta_image) }}
 ```
 
 ## Usage
 
-You can use the defaults provided by the above config:
+You can use the defaults provided by the above settings:
 
 ```twig
 {{ meta_simple() }}
@@ -47,7 +71,7 @@ The third parameter is an image. This can be a string path to an image in the
 
 The title is not fully overridden unless the fourth parameter is `false`.
 
-For example, let's say the `oh_media_meta.title` config was "Company Ltd."
+For example, let's say the `oh_media_meta_base_title` setting was "Company Ltd."
 
 If you did
 
@@ -98,5 +122,3 @@ In your templates, you can do:
 ```twig
 {{ meta_entity(myCustomEntity.meta) }}
 ```
-
-Note: This assumes the name of your association on your custom entity is called `meta`.
