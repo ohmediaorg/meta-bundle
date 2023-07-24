@@ -12,3 +12,4 @@ services:
 
     OHMedia\MetaBundle\Settings\MetaImageTransformer:
         autowire: true
+        tags: ["oh_media_settings.transformer"]
