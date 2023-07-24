@@ -12,9 +12,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class MetaSettings
 {
-    const SETTING_BASE_TITLE = 'oh_media_meta_base_title';
-    const SETTING_DESCRIPTION = 'oh_media_meta_description';
-    const SETTING_IMAGE = 'oh_media_meta_image';
+    public const SETTING_BASE_TITLE = 'oh_media_meta_base_title';
+    public const SETTING_DESCRIPTION = 'oh_media_meta_description';
+    public const SETTING_IMAGE = 'oh_media_meta_image';
 
     private $imageRepository;
     private $settings;
