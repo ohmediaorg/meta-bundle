@@ -29,7 +29,10 @@ class Meta
     public function __clone()
     {
         $this->id = null;
-        $this->image = clone $this->image;
+
+        if ($this->image) {
+            $this->image = clone $this->image;
+        }
     }
 
     public function getId(): ?int
