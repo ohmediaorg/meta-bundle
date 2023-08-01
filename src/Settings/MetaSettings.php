@@ -2,13 +2,13 @@
 
 namespace OHMedia\MetaBundle\Settings;
 
-use OHMedia\SettingsBundle\Service\Settings;
 use OHMedia\FileBundle\Form\Type\ImageEntityType;
 use OHMedia\FileBundle\Repository\ImageRepository;
+use OHMedia\SettingsBundle\Service\Settings;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 
 class MetaSettings
 {

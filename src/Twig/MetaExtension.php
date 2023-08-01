@@ -36,19 +36,19 @@ class MetaExtension extends AbstractExtension
         return [
             new TwigFunction('meta_simple', [$this, 'getMetaSimple'], [
                 'is_safe' => ['html'],
-                'needs_environment' => true
+                'needs_environment' => true,
             ]),
             new TwigFunction('meta_entity', [$this, 'getMetaEntity'], [
                 'is_safe' => ['html'],
-                'needs_environment' => true
+                'needs_environment' => true,
             ]),
         ];
     }
 
     public function getMetaSimple(
         Environment $env,
-        ?string $title = null,
-        ?string $description = null,
+        string $title = null,
+        string $description = null,
         $image = null,
         bool $appendBaseTitle = true
     ) {
@@ -68,8 +68,8 @@ class MetaExtension extends AbstractExtension
 
     private function renderMeta(
         Environment $env,
-        ?string $title = null,
-        ?string $description = null,
+        string $title = null,
+        string $description = null,
         $image,
         bool $appendBaseTitle = true
     ) {
@@ -106,7 +106,7 @@ class MetaExtension extends AbstractExtension
             return null;
         }
 
-        $absolute = $this->projectDir . '/public' . $image;
+        $absolute = $this->projectDir.'/public'.$image;
 
         if (!is_file($absolute)) {
             return null;
