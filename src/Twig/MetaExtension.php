@@ -12,7 +12,12 @@ use Twig\TwigFunction;
 
 class MetaExtension extends AbstractExtension
 {
-    private $meta;
+    private $baseTitle;
+    private $description;
+    private $fileManager;
+    private $imageData;
+    private $init = false;
+    private $metaSettings;
     private $projectDir;
 
     public function __construct(
@@ -21,13 +26,7 @@ class MetaExtension extends AbstractExtension
         string $projectDir
     ) {
         $this->fileManager = $fileManager;
-
-        $this->baseTitle = $metaSettings->getBaseTitle();
-        $this->description = $metaSettings->getDescription();
-        $image = $metaSettings->getImage();
-
-        $this->imageData = $this->getImageData($image);
-
+        $this->metaSettings = $metaSettings;
         $this->projectDir = $projectDir;
     }
 
@@ -66,6 +65,21 @@ class MetaExtension extends AbstractExtension
         );
     }
 
+    private function initSettings(): void
+    {
+        if ($this->init) {
+            return;
+        }
+
+        $this->init = true;
+
+        $this->baseTitle = $this->metaSettings->getBaseTitle();
+        $this->description = $this->metaSettings->getDescription();
+        $image = $this->metaSettings->getImage();
+
+        $this->imageData = $this->getImageData($image);
+    }
+
     private function renderMeta(
         Environment $env,
         string $title = null,
@@ -73,6 +87,8 @@ class MetaExtension extends AbstractExtension
         $image,
         bool $appendBaseTitle = true
     ) {
+        $this->initSettings();
+
         $imageData = $this->getImageData($image);
 
         $params = [
