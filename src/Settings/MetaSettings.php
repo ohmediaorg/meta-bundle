@@ -2,6 +2,7 @@
 
 namespace OHMedia\MetaBundle\Settings;
 
+use OHMedia\FileBundle\Form\Type\FileEntityType;
 use OHMedia\FileBundle\Repository\FileRepository;
 use OHMedia\SettingsBundle\Service\Settings;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
