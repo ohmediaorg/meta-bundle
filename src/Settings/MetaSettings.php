@@ -55,6 +55,7 @@ class MetaSettings
                 'label' => 'Default Image',
                 'data' => $this->getImage(),
                 'image' => true,
+                'show_alt' => false,
             ])
         ;
     }
