@@ -4,7 +4,7 @@ namespace OHMedia\MetaBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use OHMedia\FileBundle\Entity\Image;
+use OHMedia\FileBundle\Entity\File;
 
 #[ORM\Entity]
 class Meta
@@ -21,7 +21,7 @@ class Meta
     private ?string $description = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Image $image = null;
+    private ?File $image = null;
 
     #[ORM\Column]
     private ?bool $append_base_title = null;
@@ -64,12 +64,12 @@ class Meta
         return $this;
     }
 
-    public function getImage(): ?Image
+    public function getImage(): ?File
     {
         return $this->image;
     }
 
-    public function setImage(?Image $image): self
+    public function setImage(?File $image): self
     {
         $this->image = $image;
 

@@ -2,7 +2,7 @@
 
 namespace OHMedia\MetaBundle\Twig;
 
-use OHMedia\FileBundle\Entity\Image as ImageEntity;
+use OHMedia\FileBundle\Entity\File as FileEntity;
 use OHMedia\FileBundle\Service\FileManager;
 use OHMedia\MetaBundle\Entity\Meta as MetaEntity;
 use OHMedia\MetaBundle\Settings\MetaSettings;
@@ -110,9 +110,9 @@ class MetaExtension extends AbstractExtension
 
     private function getImageData($image): ?array
     {
-        if ($image instanceof ImageEntity) {
+        if ($image instanceof FileEntity) {
             return [
-                'path' => $this->fileManager->getWebPath($image->getFile()),
+                'path' => $this->fileManager->getWebPath($image),
                 'width' => $image->getWidth(),
                 'height' => $image->getHeight(),
             ];

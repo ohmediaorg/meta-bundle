@@ -2,7 +2,7 @@
 
 namespace OHMedia\MetaBundle\Form\Type;
 
-use OHMedia\FileBundle\Form\Type\ImageEntityType;
+use OHMedia\FileBundle\Form\Type\FileEntityType;
 use OHMedia\MetaBundle\Entity\Meta;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -24,9 +24,11 @@ class MetaEntityType extends AbstractType
             ->add('description', TextareaType::class, [
                 'required' => false,
             ])
-            ->add('image', ImageEntityType::class, [
+            ->add('image', FileEntityType::class, [
                 'data' => $meta ? $meta->getImage() : null,
                 'required' => false,
+                'image' => true,
+                'show_alt' => false,
             ])
         ;
 

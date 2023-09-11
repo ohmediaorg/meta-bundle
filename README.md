@@ -27,19 +27,19 @@ use OHMedia\MetaBundle\Settings\MetaFormHelper;
 public function settings(MetaFormHelper $metaFormHelper)
 {
     $formBuilder = $this->createFormBuilder();
-    
+
     $metaFormHelper->addDefaultFields($formBuilder);
-    
+
     $form = $formBuilder->getForm();
 
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
         $metaFormHelper->saveDefaultFields($form);
-        
+
         // ...
     }
-    
+
     // ...
 }
 ```
@@ -67,7 +67,7 @@ You can provide overrides:
 ```
 
 The third parameter is an image. This can be a string path to an image in the
-`public` folder or an `Image` entity from the `FileBundle`.
+`public` folder or an `File` entity from the `FileBundle`.
 
 The title is not fully overridden unless the fourth parameter is `false`.
 
@@ -99,7 +99,7 @@ you would get
 
 ## Entities
 
-There is also an entity provided in `OHMedia\MetaBundle\Entity\Meta` with a 
+There is also an entity provided in `OHMedia\MetaBundle\Entity\Meta` with a
 corresponding form type `OHMedia\MetaBundle\Form\Type\MetaEntityType`. This is
 so you can have custom meta information for your dynamic data.
 
