@@ -67,6 +67,8 @@ class MetaSettings
 
         $image = $formData[self::SETTING_IMAGE];
 
+        $image->setImage(true);
+
         $this->fileRepository->save($image, true);
 
         $this->settings->set(self::SETTING_IMAGE, $image);
