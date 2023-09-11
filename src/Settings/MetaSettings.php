@@ -54,6 +54,7 @@ class MetaSettings
             ->add(self::SETTING_IMAGE, FileEntityType::class, [
                 'label' => 'Default Image',
                 'data' => $this->getImage(),
+                'image' => true,
             ])
         ;
     }
@@ -66,8 +67,6 @@ class MetaSettings
         $this->settings->set(self::SETTING_DESCRIPTION, $formData[self::SETTING_DESCRIPTION]);
 
         $image = $formData[self::SETTING_IMAGE];
-
-        $image->setImage(true);
 
         $this->fileRepository->save($image, true);
 
