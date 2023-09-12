@@ -2,16 +2,16 @@
 
 namespace OHMedia\MetaBundle\Settings;
 
-use OHMedia\FileBundle\Repository\ImageRepository;
+use OHMedia\FileBundle\Repository\FileRepository;
 use OHMedia\SettingsBundle\Interfaces\TransformerInterface;
 
 class MetaImageTransformer implements TransformerInterface
 {
-    private $imageRepository;
+    private $fileRepository;
 
-    public function __construct(ImageRepository $imageRepository)
+    public function __construct(FileRepository $fileRepository)
     {
-        $this->imageRepository = $imageRepository;
+        $this->fileRepository = $fileRepository;
     }
 
     public function transform($value): ?string
@@ -21,7 +21,7 @@ class MetaImageTransformer implements TransformerInterface
 
     public function reverseTransform(?string $value)
     {
-        return $value ? $this->imageRepository->find($value) : null;
+        return $value ? $this->fileRepository->find($value) : null;
     }
 
     public function getId(): string

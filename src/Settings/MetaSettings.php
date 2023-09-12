@@ -2,8 +2,8 @@
 
 namespace OHMedia\MetaBundle\Settings;
 
-use OHMedia\FileBundle\Form\Type\ImageEntityType;
-use OHMedia\FileBundle\Repository\ImageRepository;
+use OHMedia\FileBundle\Form\Type\FileEntityType;
+use OHMedia\FileBundle\Repository\FileRepository;
 use OHMedia\SettingsBundle\Service\Settings;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,12 +16,12 @@ class MetaSettings
     public const SETTING_DESCRIPTION = 'oh_media_meta_description';
     public const SETTING_IMAGE = 'oh_media_meta_image';
 
-    private $imageRepository;
+    private $fileRepository;
     private $settings;
 
-    public function __construct(ImageRepository $imageRepository, Settings $settings)
+    public function __construct(FileRepository $fileRepository, Settings $settings)
     {
-        $this->imageRepository = $imageRepository;
+        $this->fileRepository = $fileRepository;
         $this->settings = $settings;
     }
 
@@ -51,10 +51,11 @@ class MetaSettings
                 'label' => 'Default Description',
                 'data' => $this->getDescription(),
             ])
-            ->add(self::SETTING_IMAGE, ImageEntityType::class, [
+            ->add(self::SETTING_IMAGE, FileEntityType::class, [
                 'label' => 'Default Image',
                 'data' => $this->getImage(),
-                'hide_alt' => true,
+                'image' => true,
+                'show_alt' => false,
             ])
         ;
     }
@@ -68,7 +69,7 @@ class MetaSettings
 
         $image = $formData[self::SETTING_IMAGE];
 
-        $this->imageRepository->save($image, true);
+        $this->fileRepository->save($image, true);
 
         $this->settings->set(self::SETTING_IMAGE, $image);
     }
