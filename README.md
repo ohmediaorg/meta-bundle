@@ -67,7 +67,7 @@ You can provide overrides:
 ```
 
 The third parameter is an image. This can be a string path to an image in the
-`public` folder or an `File` entity from the `FileBundle`.
+`public` folder or a `File` entity from the `FileBundle`.
 
 The title is not fully overridden unless the fourth parameter is `false`.
 
