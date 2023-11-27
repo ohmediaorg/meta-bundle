@@ -10,10 +10,20 @@
             "email": "justin@ohmedia.ca"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ohmediaorg/file-bundle"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ohmediaorg/settings-bundle"
+        }
+    ],
     "require": {
         "ohmediaorg/file-bundle": "dev-main",
         "ohmediaorg/settings-bundle": "dev-main",
-        "php": "^7.2",
+        "php": ">=7.2.5",
         "symfony/framework-bundle": "5.4.*"
     },
     "autoload": {
