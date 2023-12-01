@@ -41,6 +41,7 @@ class MetaExtension extends AbstractExtension
                 'is_safe' => ['html'],
                 'needs_environment' => true,
             ]),
+            new TwigFunction('is_meta_entity', [$this, 'isMetaEntity']),
         ];
     }
 
@@ -139,5 +140,10 @@ class MetaExtension extends AbstractExtension
             'width' => $size[0],
             'height' => $size[1],
         ];
+    }
+
+    public function isMetaEntity($value): bool
+    {
+        return $value instanceof MetaEntity;
     }
 }
