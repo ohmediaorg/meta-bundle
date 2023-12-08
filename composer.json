@@ -24,7 +24,7 @@
         "ohmediaorg/file-bundle": "dev-main",
         "ohmediaorg/settings-bundle": "dev-main",
         "php": ">=7.2.5",
-        "symfony/framework-bundle": "5.4.*"
+        "symfony/framework-bundle": ">=5.4.*"
     },
     "autoload": {
         "psr-4": { "OHMedia\\MetaBundle\\": "src/" }
