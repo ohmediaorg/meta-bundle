@@ -85,7 +85,7 @@ class MetaExtension extends AbstractExtension
         Environment $env,
         string $title = null,
         string $description = null,
-        $image,
+        $image = null,
         bool $appendBaseTitle = true
     ) {
         $this->initSettings();
