@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Symfony MetaBundle",
     "keywords": ["SEO"],
-    "license": "MIT",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Justin Hoffman",
