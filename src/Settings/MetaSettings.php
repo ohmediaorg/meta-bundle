@@ -16,13 +16,10 @@ class MetaSettings
     public const SETTING_DESCRIPTION = 'oh_media_meta_description';
     public const SETTING_IMAGE = 'oh_media_meta_image';
 
-    private $fileRepository;
-    private $settings;
-
-    public function __construct(FileRepository $fileRepository, Settings $settings)
-    {
-        $this->fileRepository = $fileRepository;
-        $this->settings = $settings;
+    public function __construct(
+        private FileRepository $fileRepository,
+        private Settings $settings
+    ) {
     }
 
     public function getBaseTitle()

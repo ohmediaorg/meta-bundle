@@ -12,22 +12,16 @@ use Twig\TwigFunction;
 
 class MetaExtension extends AbstractExtension
 {
-    private $baseTitle;
-    private $description;
-    private $fileManager;
-    private $imageData;
-    private $init = false;
-    private $metaSettings;
-    private $projectDir;
+    private ?string $baseTitle = null;
+    private ?string $description = null;
+    private ?array $imageData = null;
+    private bool $init = false;
 
     public function __construct(
-        FileManager $fileManager,
-        MetaSettings $metaSettings,
-        string $projectDir
+        private FileManager $fileManager,
+        private MetaSettings $metaSettings,
+        private string $projectDir
     ) {
-        $this->fileManager = $fileManager;
-        $this->metaSettings = $metaSettings;
-        $this->projectDir = $projectDir;
     }
 
     public function getFunctions(): array

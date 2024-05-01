@@ -6,12 +6,7 @@ services:
     OHMedia\MetaBundle\Settings\MetaSettings:
         autowire: true
 
-    oh_media_meta.meta_settings:
-        alias: OHMedia\MetaBundle\Settings\MetaSettings
-
-    OHMedia\MetaBundle\Settings\MetaImageTransformer:
-        autowire: true
-        tags: ["oh_media_settings.transformer"]
+    oh_media_meta.meta_settings: '@OHMedia\MetaBundle\Settings\MetaSettings'
 
     OHMedia\MetaBundle\Repository\MetaRepository:
         autowire: true
