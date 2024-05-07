@@ -2,59 +2,24 @@
 
 The bundle supplies a Twig function for outputting consistent meta tag content.
 
-## Installation
+# Installation
 
-Make sure `ohmediaorg/file-bundle` and `ohmediaorg/settings-bundle` are set up.
+Update `composer.json` by adding this to the `repositories` array:
 
-Enable the bundle in `config/bundles.php`:
-
-```php
-return [
-    // ...
-    OHMedia\MetaBundle\MetaBundle() => ['all' => true],
-];
-```
-
-## Config
-
-Manage the default settings with the `MetaFormHelper`:
-
-```php
-use OHMedia\MetaBundle\Settings\MetaFormHelper;
-
-// ...
-
-public function settings(MetaFormHelper $metaFormHelper)
+```json
 {
-    $formBuilder = $this->createFormBuilder();
-
-    $metaFormHelper->addDefaultFields($formBuilder);
-
-    $form = $formBuilder->getForm();
-
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-        $metaFormHelper->saveDefaultFields($form);
-
-        // ...
-    }
-
-    // ...
+    "type": "vcs",
+    "url": "https://github.com/ohmediaorg/meta-bundle"
 }
 ```
 
-In the template, the fields can be individually rendered:
+Then run `composer require ohmediaorg/meta-bundle:dev-main`.
 
-```twig
-{{ form_row(form.oh_media_meta_base_title) }}
-{{ form_row(form.oh_media_meta_description) }}
-{{ form_row(form.oh_media_meta_image) }}
-```
+Run `php bin/console make:migration` then run the subsequent migration.
 
-## Usage
+# Usage
 
-You can use the defaults provided by the above settings:
+You can use the default settings provided by the bundle:
 
 ```twig
 {{ meta_simple() }}
@@ -97,7 +62,7 @@ you would get
 <title>Products</title>
 ```
 
-## Entities
+# Entities
 
 There is also an entity provided in `OHMedia\MetaBundle\Entity\Meta` with a
 corresponding form type `OHMedia\MetaBundle\Form\Type\MetaEntityType`. This is
@@ -120,5 +85,5 @@ $builder->add('meta', MetaEntityType::class);
 In your templates, you can do:
 
 ```twig
-{{ meta_entity(myCustomEntity.meta) }}
+{{ meta_entity(my_custom_entity.meta) }}
 ```
