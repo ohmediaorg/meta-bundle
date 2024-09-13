@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class MetaEntityType extends AbstractType
 {
@@ -17,9 +18,16 @@ class MetaEntityType extends AbstractType
     {
         $meta = isset($options['data']) ? $options['data'] : null;
 
+        $titleConstraints = [];
+
+        if ($options['required']) {
+            $titleConstraints[] = new NotBlank();
+        }
+
         $builder
             ->add('title', null, [
                 'required' => $options['required'],
+                'constraints' => $titleConstraints,
             ])
             ->add('description', TextareaType::class, [
                 'required' => false,
