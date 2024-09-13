@@ -5,6 +5,7 @@ namespace OHMedia\MetaBundle\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use OHMedia\FileBundle\Entity\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 class Meta
@@ -15,6 +16,7 @@ class Meta
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(max: 255)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -45,7 +47,7 @@ class Meta
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -57,7 +59,7 @@ class Meta
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
