@@ -4,6 +4,7 @@ namespace OHMedia\MetaBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Persistence\Proxy;
 use OHMedia\FileBundle\Entity\File;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -30,10 +31,17 @@ class Meta
 
     public function __clone()
     {
-        $this->id = null;
+        if ($this->id) {
+            if ($this instanceof Proxy && !$this->__isInitialized()) {
+                // Initialize the proxy to load all properties
+                $this->__load();
+            }
 
-        if ($this->image) {
-            $this->image = clone $this->image;
+            $this->id = null;
+
+            if ($this->image) {
+                $this->image = clone $this->image;
+            }
         }
     }
 
