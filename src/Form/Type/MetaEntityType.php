@@ -33,7 +33,6 @@ class MetaEntityType extends AbstractType
                 'required' => false,
             ])
             ->add('image', FileEntityType::class, [
-                'data' => $meta ? $meta->getImage() : null,
                 'required' => false,
                 'image' => true,
                 'show_alt' => false,
