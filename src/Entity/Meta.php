@@ -24,6 +24,7 @@ class Meta
     private ?string $description = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[Assert\Valid]
     private ?File $image = null;
 
     #[ORM\Column]
