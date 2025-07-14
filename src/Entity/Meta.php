@@ -16,8 +16,8 @@ class Meta
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Length(max: 255)]
+    #[ORM\Column(length: 100, nullable: true)]
+    #[Assert\Length(max: 100)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
