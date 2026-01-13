@@ -6,6 +6,7 @@ use OHMedia\FileBundle\Entity\File as FileEntity;
 use OHMedia\FileBundle\Service\FileManager;
 use OHMedia\MetaBundle\Entity\Meta as MetaEntity;
 use OHMedia\MetaBundle\Settings\MetaSettings;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -20,7 +21,8 @@ class MetaExtension extends AbstractExtension
     public function __construct(
         private FileManager $fileManager,
         private MetaSettings $metaSettings,
-        private string $projectDir
+        #[Autowire('%kernel.project_dir%')]
+        private string $projectDir,
     ) {
     }
 
@@ -41,8 +43,8 @@ class MetaExtension extends AbstractExtension
 
     public function getMetaSimple(
         Environment $env,
-        string $title = null,
-        string $description = null,
+        ?string $title = null,
+        ?string $description = null,
         $image = null,
         bool $appendBaseTitle = true
     ) {
@@ -77,8 +79,8 @@ class MetaExtension extends AbstractExtension
 
     private function renderMeta(
         Environment $env,
-        string $title = null,
-        string $description = null,
+        ?string $title = null,
+        ?string $description = null,
         $image = null,
         bool $appendBaseTitle = true
     ) {
